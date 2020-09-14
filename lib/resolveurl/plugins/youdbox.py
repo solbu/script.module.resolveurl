@@ -1,6 +1,6 @@
-'''
-    resolveurl XBMC Addon
-    Copyright (C) 2011 t0mm0
+"""
+    Plugin for ResolveUrl
+    Copyright (C) 2020 gujal
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,10 +14,14 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-'''
-from __resolve_generic__ import ResolveGeneric
+"""
+from resolveurl.plugins.__resolve_generic__ import ResolveGeneric
 
-class PlayedtoResolver(ResolveGeneric):
-    name = "playedto"
-    domains = ["playedto.me"]
-    pattern = '(?://|\.)(playedto\.me)/(?:embed-|)?([0-9a-zA-Z]+)'
+
+class YouDBoxResolver(ResolveGeneric):
+    name = "youdbox"
+    domains = ['youdbox.com']
+    pattern = r'(?://|\.)(youdbox\.com)/(?:embed-)?(\w+)'
+
+    def get_url(self, host, media_id):
+        return self._default_get_url(host, media_id, template='https://{host}/embed-{media_id}.html')

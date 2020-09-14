@@ -15,19 +15,21 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-from __resolve_generic__ import ResolveGeneric
-from lib import helpers
+from resolveurl.plugins.__resolve_generic__ import ResolveGeneric
+from resolveurl.plugins.lib import helpers
 
 
-class PrimeVideosResolver(ResolveGeneric):
-    name = "primevideos"
-    domains = ['primevideos.net']
-    pattern = r'(?://|\.)(primevideos\.net)/files/([0-9a-zA-Z]+)'
+class WstreamResolver(ResolveGeneric):
+    name = "wstream"
+    domains = ['wstream.video']
+    pattern = r'(?://|\.)(wstream\.video)/(?:video6zvimpy52/|video.php\?file_code=)?([0-9a-zA-Z]+)'
 
     def get_media_url(self, host, media_id):
         return helpers.get_media_url(self.get_url(host, media_id),
-                                     patterns=[r'''source:\s*"(?P<url>[^"]+)'''],
+                                     patterns=[r'''sources:\s*\[{file:\s*"(?P<url>[^"]+)''',
+                                               r'''sources:\s*\["(?P<url>[^"]+)''',
+                                               r'''src:\s*["'](?P<url>[^'"]+)'''],
                                      generic_patterns=False)
 
     def get_url(self, host, media_id):
-        return self._default_get_url(host, media_id, template='http://vdl.{host}/secure/{media_id}.html')
+        return self._default_get_url(host, media_id, template='https://{host}/video6zvimpy52/{media_id}')
