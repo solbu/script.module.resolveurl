@@ -15,3 +15,6 @@ update-po:
 	msgmerge -U --no-wrap resource.language.ro_ro/strings.po resource.language.en_gb/strings.po
 	msgmerge -U --no-wrap resource.language.sk_sk/strings.po resource.language.en_gb/strings.po
 	msgmerge -U --no-wrap resource.language.sv_se/strings.po resource.language.en_gb/strings.po
+
+update-no:
+	msgmerge -U --no-wrap resource.language.no_no/strings.po resource.language.en_gb/strings.po
